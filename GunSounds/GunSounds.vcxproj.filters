@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Mod.cpp" />
+    <ClCompile Include="Peds.cpp" />
+    <ClCompile Include="Ped.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="TestTracers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mod.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Ped.h" />
+    <ClInclude Include="Peds.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="TestTracers.h" />
+  </ItemGroup>
+</Project>
