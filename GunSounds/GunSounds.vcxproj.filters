@@ -6,6 +6,13 @@
     <ClCompile Include="Ped.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="TestTracers.cpp" />
+    <ClCompile Include="ModConfig.cpp" />
+    <ClCompile Include="iniconfig\INIFile.cpp">
+      <Filter>iniconfig</Filter>
+    </ClCompile>
+    <ClCompile Include="iniconfig\INISection.cpp">
+      <Filter>iniconfig</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mod.h" />
@@ -14,5 +21,17 @@
     <ClInclude Include="Peds.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="TestTracers.h" />
+    <ClInclude Include="ModConfig.h" />
+    <ClInclude Include="iniconfig\INIFile.h">
+      <Filter>iniconfig</Filter>
+    </ClInclude>
+    <ClInclude Include="iniconfig\INISection.h">
+      <Filter>iniconfig</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="iniconfig">
+      <UniqueIdentifier>{01ac1420-c00e-42d6-b13c-bab3a42130ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

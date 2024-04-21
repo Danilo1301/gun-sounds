@@ -52,7 +52,7 @@ CVector TransformFromGunMuzzlePosition(CPed* ped, CVector offset)
     if (ped->m_pWeaponObject > 0)
     {
         CWeapon weapon = ped->m_aWeapons[ped->m_nActiveWeaponSlot];
-        CWeaponInfo* weaponInfo = CWeaponInfo::GetWeaponInfo(weapon.m_nType, ped->m_nWeaponSkill);
+        CWeaponInfo* weaponInfo = CWeaponInfo::GetWeaponInfo(weapon.m_eWeaponType, ped->m_nWeaponSkill);
 
         RwV3d of = {
             weaponInfo->m_vecFireOffset.x + offset.x,
@@ -82,7 +82,7 @@ void Ped::Update()
 {
     CPed* ped = m_Ped;
     CWeapon weapon = ped->m_aWeapons[ped->m_nActiveWeaponSlot];
-    auto weaponType = weapon.m_nType;
+    auto weaponType = weapon.m_eWeaponType;
 
     if (weaponType != m_WeaponType)
     {
@@ -101,7 +101,14 @@ void Ped::Update()
         m_HasFiredGun = false;
     }
 
+    UpdateMuzzleFlash();
+}
 
+void Ped::UpdateMuzzleFlash()
+{
+    if (!Mod::m_EnableMuzzleFlashEffect) return;
+
+    CPed* ped = m_Ped;
     int lightId = reinterpret_cast<unsigned int>(ped) + 500;
 
     if (m_CoronaTime > CTimer::m_snTimeInMilliseconds)
@@ -117,7 +124,7 @@ void Ped::Update()
                 alpha = 200;
             }
         }
-        
+
 
         CVector position = GetSoundPosition();
         CCoronas::RegisterCorona(
@@ -192,15 +199,18 @@ void Ped::OnFireGun()
 {
     CPed* ped = m_Ped;
     CWeapon weapon = ped->m_aWeapons[ped->m_nActiveWeaponSlot];
-    CWeaponInfo* weaponInfo = CWeaponInfo::GetWeaponInfo(weapon.m_nType, ped->m_nWeaponSkill);
+    CWeaponInfo* weaponInfo = CWeaponInfo::GetWeaponInfo(weapon.m_eWeaponType, ped->m_nWeaponSkill);
 
     m_CoronaTime = CTimer::m_snTimeInMilliseconds + 100;
 
-    TestTracers::AddTracer(
-        TransformFromGunMuzzlePosition(m_Ped, CVector(0, 0, 0)),
-        TransformFromGunMuzzlePosition(m_Ped, CVector(800, 0, 0)),
-        m_TracerColor
-    );
+    if (Mod::m_EnableTracers)
+    {
+        TestTracers::AddTracer(
+            TransformFromGunMuzzlePosition(m_Ped, CVector(0, 0, 0)),
+            TransformFromGunMuzzlePosition(m_Ped, CVector(800, 0, 0)),
+            m_TracerColor
+        );
+    }
 
     if (ped == FindPlayerPed(0))
     {

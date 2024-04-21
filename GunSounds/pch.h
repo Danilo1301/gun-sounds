@@ -80,3 +80,10 @@ static void DrawScreenText(std::string text, CVector2D position, CRGBA color = C
 	sprintf(buffer, "%s", text.c_str());
 	CFont::PrintString(position.x, position.y, buffer);
 }
+
+static std::string to_lower(std::string data) {
+	std::for_each(data.begin(), data.end(), [](char& c) {
+		c = ::tolower(c);
+	});
+	return data;
+}

@@ -14,6 +14,7 @@ public:
 	Ped(CPed* ped);
 
 	void Update();
+	void UpdateMuzzleFlash();
 	void Draw();
 	void Destroy();
 

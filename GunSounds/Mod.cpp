@@ -4,9 +4,14 @@
 
 #include "Peds.h"
 #include "TestTracers.h"
+#include "ModConfig.h"
 
 ISoundEngine* Mod::m_SoundEngine = NULL;
 std::map<eWeaponType, ISoundSource*> Mod::m_SoundSources;
+std::string Mod::m_Version = "1.0.0";
+
+bool Mod::m_EnableTracers = true;
+bool Mod::m_EnableMuzzleFlashEffect = true;
 
 ISoundSource* LoadSoundSource(std::string fileName)
 {
@@ -14,7 +19,7 @@ ISoundSource* LoadSoundSource(std::string fileName)
     sprintf(audioPath, "audios\\%s", fileName.c_str());
     ISoundSource* source = Mod::m_SoundEngine->addSoundSourceFromFile(PLUGIN_PATH(audioPath));
 
-    Log::file << "[Mod] Sound source '" << fileName << "' " << (source ? "loaded" : "error") << std::endl;;
+    Log::file << "Mod: Sound source '" << fileName << "' " << (source ? "loaded" : "error") << std::endl;;
 
     return source;
 }
@@ -22,7 +27,7 @@ ISoundSource* LoadSoundSource(std::string fileName)
 Mod::Mod()
 {
     Log::Open("GunSounds.log");
-    Log::file << "Mod" << std::endl;
+    Log::file << "Mod: GunSounds v" << Mod::m_Version << std::endl;
 
     Events::initGameEvent += Init;
     Events::processScriptsEvent += Update;
@@ -46,11 +51,15 @@ Mod::Mod()
 
 void Mod::Init()
 {
-    Log::file << "Init" << std::endl;
+    Log::file << "Mod: Init" << std::endl;
+
+    ModConfig::Load();
 
     m_SoundEngine = irrklang::createIrrKlangDevice();
 
-    Log::file << "[Mod] Sound engine " << (m_SoundEngine ? "loaded" : "error") << std::endl;;
+    Log::file << "Mod: Sound engine " << (m_SoundEngine ? "loaded" : "error") << std::endl;;
+
+    Log::file << "Mod: Loading sound sources..." << std::endl;
 
     m_SoundSources[eWeaponType::WEAPON_M4] = LoadSoundSource("m4.wav");
     m_SoundSources[eWeaponType::WEAPON_AK47] = LoadSoundSource("ak47.wav");
@@ -58,6 +67,7 @@ void Mod::Init()
     m_SoundSources[eWeaponType::WEAPON_SNIPERRIFLE] = LoadSoundSource("sniper.wav");
     m_SoundSources[eWeaponType::WEAPON_ROCKET] = LoadSoundSource("rocket.wav");
     m_SoundSources[eWeaponType::WEAPON_ROCKET_HS] = LoadSoundSource("rocket_hs.wav");
+    m_SoundSources[eWeaponType::WEAPON_PISTOL] = LoadSoundSource("pistol.wav");
 }
 
 void Mod::Update()

@@ -15,6 +15,7 @@
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GunSounds</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTASA Release|Win32'" Label="Configuration">
@@ -62,7 +63,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(PLUGIN_SDK_DIR)\plugin_sa\;$(PLUGIN_SDK_DIR)\plugin_sa\game_sa\;$(PLUGIN_SDK_DIR)\shared\;$(PLUGIN_SDK_DIR)\shared\game\;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS;GTASA;GTAGAME_NAME="San Andreas";GTAGAME_ABBR="SA";GTAGAME_ABBRLOW="sa";GTAGAME_PROTAGONISTNAME="CJ";GTAGAME_CITYNAME="San Andreas";_LA_SUPPORT;PLUGIN_SGV_10US;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -93,15 +94,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="iniconfig\INIFile.cpp" />
+    <ClCompile Include="iniconfig\INISection.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Mod.cpp" />
+    <ClCompile Include="ModConfig.cpp" />
     <ClCompile Include="Ped.cpp" />
     <ClCompile Include="Peds.cpp" />
     <ClCompile Include="TestTracers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="iniconfig\INIFile.h" />
+    <ClInclude Include="iniconfig\INISection.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Mod.h" />
+    <ClInclude Include="ModConfig.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Ped.h" />
     <ClInclude Include="Peds.h" />
