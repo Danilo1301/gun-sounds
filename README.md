@@ -13,7 +13,7 @@
 
 <h1>How to use</h1>
 
-You can shot with some weapons (like AK, M4) and it will play its correspondent .wav sound
+You can shoot with some weapons (like AK, M4) and it will play its correspondent .wav sound
 
 You can also hear the gun sounds from far away
 
