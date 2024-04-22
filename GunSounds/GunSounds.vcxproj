@@ -112,7 +112,11 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Ped.h" />
     <ClInclude Include="Peds.h" />
+    <ClInclude Include="SoundSourceInfo.h" />
     <ClInclude Include="TestTracers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

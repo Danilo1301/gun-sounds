@@ -28,10 +28,14 @@
     <ClInclude Include="iniconfig\INISection.h">
       <Filter>iniconfig</Filter>
     </ClInclude>
+    <ClInclude Include="SoundSourceInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="iniconfig">
       <UniqueIdentifier>{01ac1420-c00e-42d6-b13c-bab3a42130ac}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\notes.txt" />
   </ItemGroup>
 </Project>

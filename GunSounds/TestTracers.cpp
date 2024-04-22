@@ -2,6 +2,8 @@
 
 #include "CCoronas.h"
 
+#include "Mod.h"
+
 std::vector<Tracer> TestTracers::m_Tracers;
 
 void RegisterCorona(int lightid, CVector position, CRGBA color, float radius) {
@@ -48,9 +50,9 @@ void TestTracers::RemoveTracer(int index)
 
 void TestTracers::Update()
 {
-	int lightId = 2514854;
+	int lightId = 25148;
 
-	float f = 2.0f;
+	float f = 2.0f; //maybe somethign about velocity? i dont remember
 
 	int removeTracer = -1;
 
@@ -60,7 +62,7 @@ void TestTracers::Update()
 		i++;
 
 		tracer.pos += 0.001f * f;
-		if (tracer.pos > 1) {
+		if (tracer.pos >= 1) {
 			removeTracer = i;
 			continue;
 		}
@@ -72,11 +74,13 @@ void TestTracers::Update()
 
 		//RegisterCorona(lightId++, tracer.start, CRGBA(255, 0, 0), 0.1f);
 
-		for (int i = 0; i < 10; i++)
-		{
-			auto newPos = tracer.pos + (i * 0.0003f / f);
+		int length = (int)round(10 * Mod::m_TracerLength);
 
-			RegisterCorona(lightId++, CVector_Lerp(tracer.end, tracer.start, newPos), tracer.color, 0.15f);
+		for (int i = 0; i < length; i++)
+		{
+			auto newPos = tracer.pos + (i * Mod::m_TracerCoronaDistanceSpace / f);
+			
+			RegisterCorona(lightId++, CVector_Lerp(tracer.end, tracer.start, newPos), tracer.color, 0.15f * Mod::m_TracerSize);
 		}
 
 		//RegisterCorona(lightId++, tracer.end, CRGBA(0, 255, 0), 0.1f);

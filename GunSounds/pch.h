@@ -11,7 +11,7 @@
 #include "extensions/ScriptCommands.h"
 
 #include "map"
-
+#include <fstream>
 
 #pragma comment(lib, "irrKlang.lib")
 #include "irrKlang.h"
@@ -86,4 +86,9 @@ static std::string to_lower(std::string data) {
 		c = ::tolower(c);
 	});
 	return data;
+}
+
+inline bool file_exists(const std::string& name) {
+	std::ifstream f(name.c_str());
+	return f.good();
 }

@@ -21,6 +21,7 @@ public:
 private:
 	void OnFireGun();
 	void OnChangeWeapon();
+	void ProcessTracers();
 
 public:
 	bool GetIsShooting();

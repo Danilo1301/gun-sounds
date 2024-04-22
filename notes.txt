@@ -1,0 +1,25 @@
+--- version notes ---
+
+[1.0]
+first release
+
+--- todo (maybe) ---
+
+--- release ---
+
+Check Mod::m_Version
+Check logs
+
+Add ASI to zip
+Add OTHER DATA, if needed
+
+Change README
+PULL
+
+--- build ---
+
+* plugin-sdk
+https://github.com/DK22Pac/plugin-sdk/commit/62a1080902627b3edec0124acf02127ba8c0dcdb
+no xp support
+
+* Visual Studio 2019

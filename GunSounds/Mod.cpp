@@ -7,21 +7,35 @@
 #include "ModConfig.h"
 
 ISoundEngine* Mod::m_SoundEngine = NULL;
-std::map<eWeaponType, ISoundSource*> Mod::m_SoundSources;
+std::map<eWeaponType, SoundSourceInfo*> Mod::m_SoundSources;
 std::string Mod::m_Version = "1.0.0";
 
 bool Mod::m_EnableTracers = true;
+bool Mod::m_EnableTracersForPlayerPed = false;
 bool Mod::m_EnableMuzzleFlashEffect = true;
 
-ISoundSource* LoadSoundSource(std::string fileName)
+float Mod::m_TracerSize = 1.0f;
+float Mod::m_TracerLength = 1.0f;
+float Mod::m_TracerCoronaDistanceSpace = 0.0004f;
+
+SoundSourceInfo* LoadSoundSource(std::string fileName)
 {
     char audioPath[PLUGIN_PATH_MAX];
     sprintf(audioPath, "audios\\%s", fileName.c_str());
+
+    if (!file_exists(audioPath))
+    {
+        Log::file << "Mod: Sound source '" << fileName << "' could not be found" << std::endl;
+        return NULL;
+    }
+
     ISoundSource* source = Mod::m_SoundEngine->addSoundSourceFromFile(PLUGIN_PATH(audioPath));
 
-    Log::file << "Mod: Sound source '" << fileName << "' " << (source ? "loaded" : "error") << std::endl;;
+    SoundSourceInfo* sourceInfo = new SoundSourceInfo{fileName, source};
 
-    return source;
+    Log::file << "Mod: Sound source '" << sourceInfo->name << "' loaded (" << sourceInfo->source << ")" << std::endl;;
+
+    return sourceInfo;
 }
 
 Mod::Mod()
@@ -61,13 +75,32 @@ void Mod::Init()
 
     Log::file << "Mod: Loading sound sources..." << std::endl;
 
-    m_SoundSources[eWeaponType::WEAPON_M4] = LoadSoundSource("m4.wav");
-    m_SoundSources[eWeaponType::WEAPON_AK47] = LoadSoundSource("ak47.wav");
-    m_SoundSources[eWeaponType::WEAPON_DESERT_EAGLE] = LoadSoundSource("desert_eagle.wav");
-    m_SoundSources[eWeaponType::WEAPON_SNIPERRIFLE] = LoadSoundSource("sniper.wav");
-    m_SoundSources[eWeaponType::WEAPON_ROCKET] = LoadSoundSource("rocket.wav");
-    m_SoundSources[eWeaponType::WEAPON_ROCKET_HS] = LoadSoundSource("rocket_hs.wav");
-    m_SoundSources[eWeaponType::WEAPON_PISTOL] = LoadSoundSource("pistol.wav");
+    m_SoundSources[eWeaponType::WEAPON_MICRO_UZI] = LoadSoundSource("smg\\micro_uzi.wav");
+    m_SoundSources[eWeaponType::WEAPON_TEC9] = LoadSoundSource("smg\\tec9.wav");
+    m_SoundSources[eWeaponType::WEAPON_MP5] = LoadSoundSource("smg\\mp5.wav");
+
+    m_SoundSources[eWeaponType::WEAPON_AK47] = LoadSoundSource("rifle\\ak47.wav");
+    m_SoundSources[eWeaponType::WEAPON_M4] = LoadSoundSource("rifle\\m4.wav");
+
+    m_SoundSources[eWeaponType::WEAPON_PISTOL] = LoadSoundSource("pistol\\pistol.wav");
+    m_SoundSources[eWeaponType::WEAPON_DESERT_EAGLE] = LoadSoundSource("pistol\\desert_eagle.wav");
+
+    m_SoundSources[eWeaponType::WEAPON_SAWNOFF] = LoadSoundSource("shotgun\\sawnoff.wav");
+    m_SoundSources[eWeaponType::WEAPON_SHOTGUN] = LoadSoundSource("shotgun\\shotgun.wav");
+    m_SoundSources[eWeaponType::WEAPON_SPAS12] = LoadSoundSource("shotgun\\spas12.wav");
+
+    m_SoundSources[eWeaponType::WEAPON_PISTOL_SILENCED] = LoadSoundSource("pistol\\pistol_silenced.wav");
+
+    m_SoundSources[eWeaponType::WEAPON_SNIPERRIFLE] = LoadSoundSource("rifle\\sniperrifle.wav");
+    m_SoundSources[eWeaponType::WEAPON_COUNTRYRIFLE] = LoadSoundSource("rifle\\countryrifle.wav");
+
+    //unknown weapons
+    //m_SoundSources[eWeaponType::WEAPON_ROCKET] = LoadSoundSource("rocket\\rocket.wav");
+    //m_SoundSources[eWeaponType::WEAPON_ROCKET_HS] = LoadSoundSource("rocket\\rocket_hs.wav");
+
+    m_SoundSources[eWeaponType::WEAPON_RLAUNCHER] = LoadSoundSource("rocket\\rlauncher.wav"); //rocket launcher
+    m_SoundSources[eWeaponType::WEAPON_RLAUNCHER_HS] = LoadSoundSource("rocket\\rlauncher_hs.wav"); //rocket launcher heat seak
+
 }
 
 void Mod::Update()

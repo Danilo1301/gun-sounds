@@ -203,16 +203,10 @@ void Ped::OnFireGun()
 
     m_CoronaTime = CTimer::m_snTimeInMilliseconds + 100;
 
-    if (Mod::m_EnableTracers)
-    {
-        TestTracers::AddTracer(
-            TransformFromGunMuzzlePosition(m_Ped, CVector(0, 0, 0)),
-            TransformFromGunMuzzlePosition(m_Ped, CVector(800, 0, 0)),
-            m_TracerColor
-        );
-    }
+    ProcessTracers();
 
-    if (ped == FindPlayerPed(0))
+    bool isPlayerPed = ped == FindPlayerPed(0);
+    if (isPlayerPed)
     {
         auto dir = TheCamera.m_aCams[0].m_vecFront;
         dir.Normalise();
@@ -225,30 +219,42 @@ void Ped::OnFireGun()
     else {
     }
 
-    
-
-    
-
     float distanceMultiplier = 1.0f;
 
     //PrintMessage("pow", 2000);
 
     if (Mod::m_SoundSources.find(m_WeaponType) == Mod::m_SoundSources.end()) return;
     
-    auto source = Mod::m_SoundSources[m_WeaponType];
+    auto sourceInfo = Mod::m_SoundSources[m_WeaponType];
 
-    if (!source) return;
+    if (!sourceInfo) return;
 
     vec3df pos3d(ped->GetPosition().x * distanceMultiplier, ped->GetPosition().z * distanceMultiplier, ped->GetPosition().y * distanceMultiplier);
 
-    Mod::m_SoundEngine->play3D(source, pos3d);
+    Mod::m_SoundEngine->play3D(sourceInfo->source, pos3d);
+
+    //PrintMessage("Playing WAV " + sourceInfo->name, 1000);
+    //Log::file << "Playing WAV " << sourceInfo->name << " (" << sourceInfo->source << ") for weapon type " << std::to_string((int)m_WeaponType) << std::endl; 
 }
 
 void Ped::OnChangeWeapon()
 {
-
-
     //PrintMessage("OnChangeWeapon", 2000);
+}
+
+void Ped::ProcessTracers()
+{
+    if (!Mod::m_EnableTracers) return;
+    
+    bool isPlayerPed = m_Ped == FindPlayerPed(0);
+
+    if (!Mod::m_EnableTracersForPlayerPed && isPlayerPed) return;
+    
+    TestTracers::AddTracer(
+        TransformFromGunMuzzlePosition(m_Ped, CVector(0, 0, 0)),
+        TransformFromGunMuzzlePosition(m_Ped, CVector(800, 0, 0)),
+        m_TracerColor
+    );
 }
 
 bool Ped::GetIsShooting()

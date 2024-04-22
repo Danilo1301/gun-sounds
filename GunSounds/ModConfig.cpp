@@ -35,11 +35,21 @@ void ModConfig::LoadSettings()
         auto generalSection = generalSections[0];
 
         Mod::m_EnableTracers = generalSection->GetBool("enable_tracers", Mod::m_EnableTracers);
+        Mod::m_EnableTracersForPlayerPed = generalSection->GetBool("enable_tracers_for_player_ped", Mod::m_EnableTracersForPlayerPed);
         Mod::m_EnableMuzzleFlashEffect = generalSection->GetBool("enable_muzzle_flash_effect", Mod::m_EnableMuzzleFlashEffect);
+
+        Mod::m_TracerSize = generalSection->GetFloat("tracer_size", Mod::m_TracerSize);
+        Mod::m_TracerLength = generalSection->GetFloat("tracer_length", Mod::m_TracerLength);
+        Mod::m_TracerCoronaDistanceSpace = generalSection->GetFloat("tracer_corona_distance_space", Mod::m_TracerCoronaDistanceSpace);
     }
 
     Log::file << "enable_tracers: " << (Mod::m_EnableTracers ? "true" : "false") << std::endl;
+    Log::file << "enable_tracers_for_player_ped: " << (Mod::m_EnableTracersForPlayerPed ? "true" : "false") << std::endl;
     Log::file << "enable_muzzle_flash_effect: " << (Mod::m_EnableMuzzleFlashEffect ? "true" : "false") << std::endl;
+    
+    Log::file << "tracer_size: " << Mod::m_TracerSize << std::endl;
+    Log::file << "tracer_length: " << Mod::m_TracerLength << std::endl;
+    Log::file << "tracer_corona_distance_space: " << Mod::m_TracerCoronaDistanceSpace << std::endl;
 
     Log::file << "ModConfig: Success reading settings.ini" << std::endl;
 }
