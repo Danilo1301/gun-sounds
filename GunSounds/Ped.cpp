@@ -244,6 +244,8 @@ void Ped::OnChangeWeapon()
 
 void Ped::ProcessTracers()
 {
+    if (!m_Ped->GetIsOnScreen()) return;
+
     if (!Mod::m_EnableTracers) return;
     
     bool isPlayerPed = m_Ped == FindPlayerPed(0);

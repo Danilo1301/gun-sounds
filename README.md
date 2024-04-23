@@ -2,9 +2,10 @@
 
 <h1>Required</h1>
 
-1. CLEO
-2. Modloader
-3. Version **GTA 1.0 US**
+1. Version **GTA 1.0 US**
+2. CLEO or any ASI Loader
+3. Modloader
+4. fastman92 Limit Adjuster or Open Limit Adjuster
 
 <h1>How to install</h1>
 

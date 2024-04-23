@@ -1,7 +1,10 @@
 --- version notes ---
 
-[1.0]
+[1.0.0]
 first release
+
+[1.0.1]
+[X] FIX: bullets floating in the air (issue happens when ped shoots outside the screen)
 
 --- todo (maybe) ---
 

@@ -8,7 +8,7 @@
 
 ISoundEngine* Mod::m_SoundEngine = NULL;
 std::map<eWeaponType, SoundSourceInfo*> Mod::m_SoundSources;
-std::string Mod::m_Version = "1.0.0";
+std::string Mod::m_Version = "1.0.1";
 
 bool Mod::m_EnableTracers = true;
 bool Mod::m_EnableTracersForPlayerPed = false;
